@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jimmy's safeplace</title>
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Importa la fuente Roboto desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('jerrysafeplace2.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Roboto', sans-serif; /* Aplica la fuente Roboto */
+        }
+
+        h1 {
+            color: black;
+            font-size: 48px; /* Tamaño del título */
+            font-weight: 700; /* Negrita */
+            margin-bottom: 20px; /* Espacio entre el título y los botones */
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .buttons {
+            position: absolute;
+            top: 23%;
+            left: 48%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: row;
+            gap: 25px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 25px 25px;
+            border-radius: 5px;
+            font-size: 25px;
+            text-align: center;
+            width: 200px;
+            font-weight: 300; /* Peso regular de Roboto */
+        }
+
+        a:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        /* Botón de altavoz */
+        .audio-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            background: url('speaker-on.png') no-repeat center;
+            background-size: contain;
+            border: none;
+            cursor: pointer;
+        }
+
+        .audio-toggle.muted {
+            background-image: url('speaker-off.png');
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor de los botones -->
+    <h1></h1>
+    <div class="buttons">
+        <a href="lore.html">Jimmy's Lore</a>
+        <a href="avoid-the-jeet.html">Escape the Jeets</a>
+        <a href="https://pump.fun" target="_blank">$JIMMY</a>
+        <a>Coming soon... </a>
+    </div>
+    <!-- Botón de altavoz -->
+    <button class="audio-toggle" id="audioToggle"></button>
+    <!-- Audio -->
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const audioToggle = document.getElementById('audioToggle');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+
+        // Estado inicial: música reproduciéndose
+        let isPlaying = true;
+
+        // Intenta reproducir la música al cargar la página
+        window.addEventListener('load', () => {
+            backgroundMusic.play().catch((error) => {
+                console.log('Autoplay bloqueado: el usuario necesita interactuar.');
+                isPlaying = false;
+                audioToggle.classList.add('muted');
+            });
+        });
+
+        // Control del botón de audio
+        audioToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                audioToggle.classList.add('muted');
+            } else {
+                backgroundMusic.play().catch((error) => {
+                    console.log('Error al reproducir:', error);
+                });
+                audioToggle.classList.remove('muted');
+            }
+            isPlaying = !isPlaying;
+        });
+    </script>
+</body>
+</html>
